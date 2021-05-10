@@ -20,6 +20,7 @@ public class BIOServer {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     // 阻塞方法获取新的连接
+                    // socket不要使用try-with-resource格式，否则异步代码会造成子线程获取不到socket中的字节流信息
                     Socket socket = serverSocket.accept();
                     // 每一个新的连接都创建一个线程，负责读取数据
                     new Thread(() -> {

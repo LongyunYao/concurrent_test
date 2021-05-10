@@ -33,7 +33,7 @@ public class NIOServer {
                 listenerChannel.socket().bind(new InetSocketAddress(8848));
                 listenerChannel.configureBlocking(false);
                 listenerChannel.register(serverSelector, SelectionKey.OP_ACCEPT);
-                while (true) {
+                while (!Thread.currentThread().isInterrupted()) {
                     // 监测是否有新的连接，这里的1指的是阻塞的时间为 1ms
                     if (serverSelector.select(1) <= 0) {
                         continue;
@@ -60,7 +60,7 @@ public class NIOServer {
         }).start();
         new Thread(() -> {
             try {
-                while (true) {
+                while (!Thread.currentThread().isInterrupted()) {
                     // (2) 批量轮询是否有哪些连接有数据可读，这里的1指的是阻塞的时间为 1ms
                     if (clientSelector.select(1) <= 0) {
                         continue;

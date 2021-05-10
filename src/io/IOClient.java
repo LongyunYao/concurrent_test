@@ -16,7 +16,7 @@ public class IOClient {
     public static void main(String[] args) {
         Runnable sender = () -> {
             Scanner scanner = new Scanner(System.in);
-            try (Socket socket = new Socket("127.0.0.1", 8848)) {
+            try (Socket socket = new Socket("220.181.38.148", 80)) {
                 while (!Thread.currentThread().isInterrupted() && scanner.hasNext()) {
                     System.out.println("IOClient send a msg, socket's info -- Client:" + socket.getLocalSocketAddress());
                     socket.getOutputStream().write(scanner.next().getBytes(StandardCharsets.UTF_8));
